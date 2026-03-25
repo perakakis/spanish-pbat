@@ -12,13 +12,13 @@ set.seed(1)
 # Load Boruta results
 df <- read.csv("./results/Boruta_results_es.csv")
 plot_title <- "Spain"
-filename <- "./figures/LinkCommunities_es_5_predictors.pdf"
+filename <- "./figures/LinkCommunities_es.pdf"
 
 long_df <- melt(df, id.vars = "Predictor")
 colnames(long_df)[c(2, 3)] <- c("Outcome", "Rank")
 
 # Set importance threshold
-rank_threshold <- 5
+rank_threshold <- 3
 predictors_as_pies <- FALSE
 size_as_degree <- TRUE
 lc_cutat <- FALSE
