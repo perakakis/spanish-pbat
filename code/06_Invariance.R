@@ -103,6 +103,22 @@ fit_scalar     <- cfa(model, data = df_combined, group = "country",
                       estimator = "MLR")
 
 # ------------------------------------------------------------------------------
+# Step 5 — Partial scalar invariance
+# Free intercepts identified by lavTestScore() on the scalar model, in
+# descending order of X2: Socialp (39.5), Challengep (12.4), Healthp (10.7),
+# Socialn (10.3), Cognitionn (9.8). Stopping criterion: dCFI vs metric <= .010.
+# ------------------------------------------------------------------------------
+partial_free <- c("Socialp", "Challengep", "Healthp", "Socialn", "Cognitionn")
+
+fit_partial  <- cfa(model, data = df_combined, group = "country",
+                    group.equal   = c("loadings", "intercepts"),
+                    group.partial = paste0(partial_free, "~1"),
+                    estimator = "MLR")
+
+cat("\n--- Step 5: Partial scalar fit ---\n")
+print(fitMeasures(fit_partial, c("cfi.robust", "rmsea.robust", "srmr")))
+
+# ------------------------------------------------------------------------------
 # Collect fit indices
 # ------------------------------------------------------------------------------
 fit_indices <- function(fit, label) {
@@ -126,16 +142,23 @@ fit_indices <- function(fit, label) {
 fit_table <- rbind(
   fit_indices(fit_configural, "Configural"),
   fit_indices(fit_metric,     "Metric"),
-  fit_indices(fit_scalar,     "Scalar")
+  fit_indices(fit_scalar,     "Scalar"),
+  fit_indices(fit_partial,    "Partial Scalar")
 )
 
-# Add delta columns (relative to configural)
-fit_table$dCFI   <- c(NA,
-  round(fit_table$CFI[2]   - fit_table$CFI[1],   3),
-  round(fit_table$CFI[3]   - fit_table$CFI[2],   3))
-fit_table$dRMSEA <- c(NA,
+# Add delta columns (each model vs. its predecessor)
+fit_table$dCFI <- c(
+  NA,
+  round(fit_table$CFI[2] - fit_table$CFI[1], 3),
+  round(fit_table$CFI[3] - fit_table$CFI[2], 3),
+  round(fit_table$CFI[4] - fit_table$CFI[2], 3)
+)
+fit_table$dRMSEA <- c(
+  NA,
   round(fit_table$RMSEA[2] - fit_table$RMSEA[1], 3),
-  round(fit_table$RMSEA[3] - fit_table$RMSEA[2], 3))
+  round(fit_table$RMSEA[3] - fit_table$RMSEA[2], 3),
+  round(fit_table$RMSEA[4] - fit_table$RMSEA[2], 3)
+)
 
 cat("\n--- Invariance fit table ---\n")
 print(fit_table)
@@ -147,7 +170,8 @@ write.csv(fit_table,
           "./results/invariance_fit.csv",
           row.names = FALSE)
 
-save(fit_configural, fit_metric, fit_scalar, fit_es, fit_sw, fit_table,
+save(fit_configural, fit_metric, fit_scalar, fit_partial,
+     fit_es, fit_sw, fit_table,
      file = "./results/invariance_results.RData")
 
 cat("\nResults saved to ./results/invariance_fit.csv and ./results/invariance_results.RData\n")
