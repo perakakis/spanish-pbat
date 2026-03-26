@@ -102,3 +102,29 @@ tbl_6 <- correlation_between_sets(df, PBAT_labels, NEED_labels)
 # Table 7: Link between PBAT and clinically relevant outcome
 tbl_7 <- correlation_between_sets(df, PBAT_labels, c(STOPD_labels, "HEALTH", "VITAL"))
 # write.csv(tbl_7, "./tables/table7.csv")
+
+# ── Distributional checks ─────────────────────────────────────────────────
+
+# Check 1: Univariate skewness and kurtosis
+# psych::describe() reports skew and excess kurtosis
+# Thresholds: |skew| < 2 and |kurtosis| < 7 (Curran et al., 1996)
+all_vars <- c(PBAT_labels, STOPD_labels, "VITAL", "HEALTH",
+              "Autonomy Satisfaction", "Autonomy Frustration",
+              "Competence Satisfaction", "Competence Frustration",
+              "Connection Satisfaction", "Connection Frustration")
+desc <- psych::describe(df[, all_vars])
+tbl_skew_kurt <- round(desc[, c("n", "mean", "sd", "skew", "kurtosis")], 3)
+# write.csv(tbl_skew_kurt, "./results/skewness_kurtosis.csv")
+
+# Check 2: Mardia's multivariate normality test on the 14 CFA items
+# Rejection is expected; MLR was used to account for non-normality
+pbat_14 <- PBAT_labels[1:14]
+mardia_result <- psych::mardia(df[, pbat_14], plot = FALSE)
+tbl_mardia <- data.frame(
+  test = c("Multivariate skewness", "Multivariate kurtosis"),
+  statistic = c("b1p", "b2p"),
+  value = round(c(mardia_result$b1p, mardia_result$b2p), 3),
+  chi2_or_z = round(c(mardia_result$skew, mardia_result$kurtosis), 2),
+  p = c(mardia_result$p.skew, mardia_result$p.kurt)
+)
+# write.csv(tbl_mardia, "./results/mardia_normality.csv", row.names = FALSE)
