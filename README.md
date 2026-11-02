@@ -1,5 +1,7 @@
 # Spanish PBAT — validation and cross-country link community analysis
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23892059.svg)](https://doi.org/10.5281/zenodo.23892059)
+
 Analysis code for:
 
 Goicoechea, C., Wallman-Jones, A., Ciarrochi, J., Hayes, S. C., Hofmann, S. G.,
