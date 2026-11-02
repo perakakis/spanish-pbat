@@ -53,3 +53,7 @@ tables), plus base R for everything else. Analyses were run under R 4.4.2.
 Note that the figures here are regenerated output: their community colour
 assignment and node layout differ from the figures in the published article,
 which were produced by an earlier run.
+
+## License
+
+The code is released under the MIT licence (`LICENSE`). The Spanish data (`data/data_es.csv`) are released under CC BY 4.0; the Swedish data keep the terms of their original publication (`data/LICENSE.md`).

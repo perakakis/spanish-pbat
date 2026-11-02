@@ -1,0 +1,50 @@
+{
+  "upload_type": "software",
+  "license": "CC-BY-4.0",
+  "version": "v1.0",
+  "access_right": "open",
+  "title": "Code and data for the article \"Spanish validation of the PBAT and cross-country mapping of process-outcome networks using link community analysis\"",
+  "description": "Analysis code (R) and the Spanish Process-Based Assessment Tool (PBAT) validation data (N = 602) used in Goicoechea et al. (2026), Journal of Contextual Behavioral Science, 41, 101021. The code is released under the MIT licence and the Spanish data under CC BY 4.0; the Swedish item-level data included for the invariance analysis keep the terms of their original publication (Larsson and Sundström, 2024). See LICENSE and data/LICENSE.md in the archive.",
+  "creators": [
+    {
+      "name": "Goicoechea, Carmen",
+      "affiliation": "Complutense University of Madrid; University of La Rioja"
+    },
+    {
+      "name": "Wallman-Jones, Amie",
+      "affiliation": "University of California, San Francisco"
+    },
+    {
+      "name": "Ciarrochi, Joseph",
+      "affiliation": "Australian Catholic University"
+    },
+    {
+      "name": "Hayes, Steven C.",
+      "affiliation": "University of Nevada, Reno"
+    },
+    {
+      "name": "Hofmann, Stefan G.",
+      "affiliation": "Philipps-University of Marburg"
+    },
+    {
+      "name": "Perakakis, Pandelis",
+      "affiliation": "Complutense University of Madrid",
+      "orcid": "0000-0002-9130-3247"
+    }
+  ],
+  "keywords": [
+    "Process-Based Assessment Tool",
+    "process-based therapy",
+    "validation",
+    "network analysis",
+    "link communities"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.1016/j.jcbs.2026.101021",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    }
+  ]
+}
